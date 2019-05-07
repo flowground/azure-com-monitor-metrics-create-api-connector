@@ -1,0 +1,61 @@
+{
+    "title": "Azure Metrics",
+    "description": "A client for issuing REST requests to the Azure metrics service.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/monitor-metricsCreate_API/2018-09-01-preview/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://monitoring.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "Metrics_Create": {
+            "main": "./lib/actions/Metrics_Create.js",
+            "title": "**Post the metric values for a resource**.",
+            "description": "**Post the metric values for a resource**.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "application/json; odata=minimalmetadata": "application/json; odata=minimalmetadata"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Metrics_Create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
